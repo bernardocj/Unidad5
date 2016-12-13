@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+</h:head>
+<body>
+	<h1>Movie</h1>
+	<h:form id="frmMovie">
+	Name:<h:inputText value="#{movieController.movie.name}" />
+	
+	Sales:<h:inputText value="#{movieController.movie.sales}" />
+	Year:<h:inputText value="#{movieController.movie.year}" />
+	Description:<h:inputText value="#{movieController.movie.description}" />
+	
+	
+	
+	
+	
+		 <h:commandButton action="#{movieController.save}" value="Save">
+		 <f:ajax execute="frmMovie" render="frmMovie" /> 
+		 </h:commandButton>
+		 <h:commandButton rendered="#{movieController.editMode}"
+		  action="#{movieController.save}" value="Cancel" >
+		  <f:ajax render="frmMovie"></f:ajax>
+		  </h:commandButton>
+		 <h:dataTable value="#{movieController.movies}" var="m" id="dtMovie">
+		 <h:column> 
+		 <f:facet name="header">ID</f:facet>
+		 #{m.id} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Name</f:facet>
+		 #{m.name} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Sales</f:facet>
+		 #{m.sales} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Year</f:facet>
+		 #{m.year} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Description</f:facet>
+		 #{m.description} </h:column>
+		  <h:column>
+		 <f:facet name="header">Actions</f:facet>
+		 <h:commandButton action="#{movieController.delete(m)}" value="Delete" 
+		 onClick="return window.confirm ('Are you sure?')">
+		 <f:ajax render="frmMovie:dtMovie"/></h:commandButton>
+		 <h:commandButton action="#{movieController.update(m)}" value="Update" >
+		 <f:ajax render="frmMovie"/> </h:commandButton>
+		 </h:column>
+		 </h:dataTable>
+		</h:form>
+	
+	</body>
+	
+	
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+</h:head>
+<body>
+	<h1>Document Type</h1>
+	<h:form id="frmDocumentType">
+	Name:<h:inputText value="#{documentTypeController.documentType.name}" />
+	File Extension:<h:inputText value="#{documentTypeController.documentType.fileExtension}" />
+		 <h:commandButton action="#{documentTypeController.save}" value="Save">
+		 <f:ajax execute="frmDocumentType" render="frmDocumentType" /> 
+		 </h:commandButton>
+		 <h:commandButton rendered="#{documentTypeController.editMode}"
+		  action="#{documentTypeController.save}" value="Cancel" >
+		  <f:ajax render="frmDocumentType"></f:ajax>
+		  </h:commandButton>
+		 <h:dataTable value="#{documentTypeController.documentTypes}" var="dt" id="dtDocumentType">
+		 <h:column> 
+		 <f:facet name="header">ID</f:facet>
+		 #{dt.id} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Name</f:facet>
+		 #{dt.name} </h:column>
+		 <h:column> 
+		 <f:facet name="header">File Extension</f:facet>
+		 #{dt.fileExtension} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Actions</f:facet>
+		 <h:commandButton action="#{documentTypeController.delete(dt)}" value="Delete" 
+		 onClick="return window.confirm ('Are you sure?')">
+		 <f:ajax render="frmDocumentType:dtDocumentType"/></h:commandButton>
+		 <h:commandButton action="#{documentTypeController.update(dt)}" value="Update" >
+		 <f:ajax render="frmDocumentType"/> </h:commandButton>
+		 </h:column>
+		 </h:dataTable>
+		</h:form>
+	
+	</body>
+	
+	
+</html>

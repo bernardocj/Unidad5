@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+</h:head>
+<body>
+	<h1>Computer</h1>
+	<h:form id="frmComputer">
+	Name:<h:inputText value="#{computerController.computer.name}" />
+	
+	RAM:<h:inputText value="#{computerController.computer.ram}" />
+	Model:<h:inputText value="#{computerController.computer.model}" />
+	Procesator:<h:inputText value="#{computerController.computer.procesator}" />
+	
+	
+	
+	
+	
+		 <h:commandButton action="#{computerController.save}" value="Save">
+		 <f:ajax execute="frmComputer" render="frmComputer" /> 
+		 </h:commandButton>
+		 <h:commandButton rendered="#{computerController.editMode}"
+		  action="#{computerController.save}" value="Cancel" >
+		  <f:ajax render="frmComputer"></f:ajax>
+		  </h:commandButton>
+		 <h:dataTable value="#{computerController.computers}" var="cp" id="dtComputer">
+		 <h:column> 
+		 <f:facet name="header">ID</f:facet>
+		 #{cp.id} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Name</f:facet>
+		 #{cp.name} </h:column>
+		 <h:column> 
+		 <f:facet name="header">RAM</f:facet>
+		 #{cp.ram} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Model</f:facet>
+		 #{cp.model} </h:column>
+		 <h:column> 
+		 <f:facet name="header">Procesator</f:facet>
+		 #{cp.procesator} </h:column>
+		  <h:column>
+		 <f:facet name="header">Actions</f:facet>
+		 <h:commandButton action="#{computerController.delete(cp)}" value="Delete" 
+		 onClick="return window.confirm ('Are you sure?')">
+		 <f:ajax render="frmComputer:dtComputer"/></h:commandButton>
+		 <h:commandButton action="#{computerController.update(cp)}" value="Update" >
+		 <f:ajax render="frmComputer"/> </h:commandButton>
+		 </h:column>
+		 </h:dataTable>
+		</h:form>
+	
+	</body>
+	
+	
+</html>
